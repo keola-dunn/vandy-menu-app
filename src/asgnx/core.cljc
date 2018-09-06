@@ -38,7 +38,11 @@
 ;; See the cmd-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn cmd [msg])
+(defn cmd [msg]
+  (if (= [] (words msg))
+    nil
+    (get (words msg) 0)))
+
 
 ;; Asgn 1.
 ;;
@@ -50,7 +54,10 @@
 ;; See the args-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn args [msg])
+(defn args [msg]
+  (if (= [] (words msg))
+    []
+    (rest (words msg)))) ;;this isnt done yet
 
 ;; Asgn 1.
 ;;
@@ -64,7 +71,8 @@
 ;; See the parsed-msg-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn parsed-msg [msg])
+(defn parsed-msg [msg]
+  {:cmd (cmd msg) :args (args msg)})
 
 ;; Asgn 1.
 ;;
@@ -78,7 +86,9 @@
 ;; See the welcome-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn welcome [pmsg])
+(defn welcome [pmsg]
+  (str "Welcome " (get (get pmsg :args) 0)))
+
 
 ;; Asgn 1.
 ;;
@@ -88,8 +98,8 @@
 ;; See the homepage-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn homepage [_])
-
+(defn homepage [_]
+  cs4278-brightspace)
 
 ;; Asgn 1.
 ;;
@@ -101,7 +111,14 @@
 ;; See the format-hour-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn format-hour [h])
+(defn format-hour [h]
+  (if (> h 11)
+    (if (= 12 h)
+      (str 12 "pm")
+      (str (- h 12) "pm"))
+    (if (= h 0)
+      (str 12 "am")
+      (str h "am"))))
 
 ;; Asgn 1.
 ;;
@@ -118,7 +135,10 @@
 ;; See the formatted-hours-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn formatted-hours [hours])
+(defn formatted-hours [hours]
+  (str "from " (format-hour (get hours :start))
+       " to " (format-hour (get hours :end))
+       " in " (get hours :location)))
 
 ;; Asgn 1.
 ;;
@@ -135,7 +155,10 @@
 ;; See the office-hours-for-day-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn office-hours [{:keys [args cmd]}])
+(defn office-hours [{:keys [args cmd]}]
+  (if (contains? instructor-hours (get args 0))
+   (formatted-hours (get instructor-hours (get args 0)))
+   (str "there are no office hours on that day")))
 
 ;; Asgn 2.
 ;;
@@ -461,7 +484,13 @@
 ;; See the create-router-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn create-router [routes])
+(defn create-router [routes]
+  (fn [in]
+    (if (contains? routes (get in :cmd))
+      (get routes (get in :cmd))
+      (get routes "default"))))
+
+
 
 ;; Don't edit!
 (defn output [o]
