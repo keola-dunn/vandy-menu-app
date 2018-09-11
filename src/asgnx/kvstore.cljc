@@ -32,7 +32,11 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-put [m ks v])
+(defn state-put [m ks v]
+  ;; @InspiredBy
+  ;; @Source: https://clojuredocs.org/clojure.core/assoc-in
+  (assoc-in m ks v))
+;; @EndInspiredBy
 
 ;; Asgn 2
 ;;
@@ -49,7 +53,19 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-remove [m ks])
+
+;; @FoundCode
+;; @Source: https://stackoverflow.com/questions/14488150/how-to-write-a-dissoc-in-command-for-clojure
+(defn state-remove [m ks]
+  (if-let [[k & ks] (seq ks)]
+    (if (seq ks)
+      (let [v (state-remove (get m k) ks)]
+        (if (empty? v)
+          (dissoc m k)
+          (assoc m k v)))
+      (dissoc m k))
+    m))
+;; @EndFoundCode 
 
 ;; Asgn 2
 ;;
@@ -70,7 +86,8 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-get [& args]) ;; Change the signature!
+(defn state-get [m ks]
+  (get-in m ks)) ;; Change the signature!
 
 
 ;; Asgn 2
@@ -88,7 +105,8 @@
 ;;
 ;; See the tests in asgnx.kvstore-test for a complete spec.
 ;;
-(defn state-keys [m ks])
+(defn state-keys [m ks]
+  (keys (get-in m ks)))
 
 
 ;; An in-memory store that mimics the side-effect based stores

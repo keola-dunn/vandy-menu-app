@@ -169,7 +169,10 @@
 ;; The map should also have the key :action bound to the value
 ;; :send.
 ;;
-(defn action-send-msg [to msg])
+(defn action-send-msg [to msg]
+  ;;needs to handle multiple "to" people, and return them in a list
+  (hash-map :to to, :msg msg, :action :send))
+
 
 ;; Asgn 2.
 ;;
@@ -186,7 +189,8 @@
 ;;   output.add( action-send-msg(person, msg) )
 ;; return output
 ;;
-(defn action-send-msgs [people msg])
+(defn action-send-msgs [people msg]
+  (map #(action-send-msg % msg) people))
 
 ;; Asgn 2.
 ;;
@@ -198,7 +202,8 @@
 ;; The map should also have the key :action bound to the value
 ;; :assoc-in.
 ;;
-(defn action-insert [ks v])
+(defn action-insert [ks v]
+  {:action :assoc-in, :ks ks, :v v})
 
 ;; Asgn 2.
 ;;
@@ -221,7 +226,8 @@
 ;;  (action-insert [:foo :bar :b] 32)
 ;;  (action-insert [:foo :bar :c] 32)]
 ;;
-(defn action-inserts [prefix ks v])
+(defn action-inserts [prefix ks v]
+  (map #(action-insert % v) (map #(conj prefix %) ks)))
 
 ;; Asgn 2.
 ;;
@@ -231,7 +237,8 @@
 ;; The map should also have the key :action bound to the value
 ;; :dissoc-in.
 ;;
-(defn action-remove [ks])
+(defn action-remove [ks]
+  {:action :dissoc-in, :ks ks})
 
 ;; Asgn 3.
 ;;
