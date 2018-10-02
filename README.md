@@ -1,6 +1,6 @@
 # Vandy Menu App
 
- 	This year, Vanderbilt has implemented a number of campus dining changes that
+ This year, Vanderbilt has implemented a number of campus dining changes that
 have significantly affected students and their dining habits. The addition of new 
 halls, removal of old staples, and a general refreshing of the existing options has
 meant that menus across campus have been significantly changed from years prior.
@@ -13,7 +13,7 @@ Vanderbilt dining options such that they can all be fully experienced. The inten
 go about this is through a text messaging application that will communicate campus dining options
 to students on a day to day basis.
 
-	Through the interviews, it is apparent that some students already access the 
+Through the interviews, it is apparent that some students already access the 
 campus dining website and application to view menu options. Some students indicated that
 receiving dining info on their phones is or would be the best way to receive dining
 information. These feedback invite the use of a text messaging application, where students
@@ -26,7 +26,7 @@ students explore other existing options on Vanderbilt’s campus by indicating t
 is available. An added side effect of this is that it could help to reduce lines during the
 most hectic meal times on campus. 
 
-	The premise for this solution is simple. In order to better provide students with
+The premise for this solution is simple. In order to better provide students with
 current menu options which will help streamline decision processes and improve student meal
 exposure, this application will allow students to text an inquiry to a specific phone number
 and receive menu options for the day and time based on their inquiry. This will in theory be
