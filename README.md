@@ -61,59 +61,79 @@ functionality to potentially entirely static data or a response containing a hyp
 ## Question 1:
    Menu options always influence where I eat on campus. I never go to eat 
 somewhere without an idea of what I’m eating.
-   I like soup, so I go where there is good soup on campus.
-   Menu options always determine where I eat. 
+   
+I like soup, so I go where there is good soup on campus.
+   
+Menu options always determine where I eat. 
 
 ## Question 2:
    I rarely use the campus dining application or website.
-   I use the app probably once a week. 
-   I use the website daily, often multiple times per day.
+   
+I use the app probably once a week. 
+   
+I use the website daily, often multiple times per day.
 
 ## Question 3:
    I never have to check the application for anything, I usually know what 
 I’m getting and where I’m going.
-   I use the app to check what kinds of soup there are.
+   
+I use the app to check what kinds of soup there are.
+
    I use the website to check different menu’s throughout the day.
 
 ## Question 4:
    I haven’t ever eaten at Grins, mostly because I don’t know what they serve.
-   I don’t eat at EBI. I don’t like Asian food much.
+  
+ I don’t eat at EBI. I don’t like Asian food much.
+
    EBI. It is so far and the food wasn’t the best the one time I went. 
 
 ## Question 5:
    I eat where I do on campus mostly for convenience and not having to worry
 about what to eat elsewhere on campus.
-   Like I said, I just follow the places with the best soups on campus.
+   
+Like I said, I just follow the places with the best soups on campus.
+
    I usually eat at the same locations because I know what they have
 and my friends eat there.
 
-## Question 6:
-   We should have a pizza place on campus, like Pi used to be.
-   Just ice cream.  
+## Question 6:  
+ We should have a pizza place on campus, like Pi used to be.
+   
+Just ice cream.  
+
    I’d really appreciate if Vanderbilt offered a barbecue option somewhere on campus.
 
 ## Question 7:
    The best way for me to receive menu information would be somehow through my phone.
-   If I could get text updates for different soups on campus. 
+   
+If I could get text updates for different soups on campus. 
+
    I use my computer because I check while I’m in class. My phone would be better but
 the app is clunky to use while walking.
 
 ## Question 8:
    I prefer menus that are both static and dynamic, like the pub used to be when
 they had the weekly specials.
-   I like menus that change so I can have different options.
+   
+I like menus that change so I can have different options.
+
    I like menus that change. I get more options that way.
 
 ## Question 9:
    I will often not eat on campus because I do not feel like eating at any of the
 places I normally do. 
-   Yes. All the time. 
+  
+ Yes. All the time. 
+
    Yeah, usually on the weekends.
 
 ## Question 10:
    I walk to commons a few times a week to get food. They have more options that 
 will change on occasion.
-   I eat at commons almost every day. Its a mixture of walking there for food and
+   
+I eat at commons almost every day. Its a mixture of walking there for food and
 having class there near meal times. 
-   I eat at commons a couple times a week, but not for any reason in particular.
+   
+I eat at commons a couple times a week, but not for any reason in particular.
 They’ve added a bunch of new options though.
