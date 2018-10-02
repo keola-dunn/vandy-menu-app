@@ -12,6 +12,7 @@ learn about and explore the available dining and menu options more easily and co
 Vanderbilt dining options such that they can all be fully experienced. The intended way to
 go about this is through a text messaging application that will communicate campus dining options
 to students on a day to day basis.
+
 	Through the interviews, it is apparent that some students already access the 
 campus dining website and application to view menu options. Some students indicated that
 receiving dining info on their phones is or would be the best way to receive dining
@@ -24,6 +25,7 @@ barbecue on Commons over the weekends. Additionally, this sort of application co
 students explore other existing options on Vanderbilt’s campus by indicating to them what
 is available. An added side effect of this is that it could help to reduce lines during the
 most hectic meal times on campus. 
+
 	The premise for this solution is simple. In order to better provide students with
 current menu options which will help streamline decision processes and improve student meal
 exposure, this application will allow students to text an inquiry to a specific phone number
@@ -114,4 +116,4 @@ will change on occasion.
    I eat at commons almost every day. Its a mixture of walking there for food and
 having class there near meal times. 
    I eat at commons a couple times a week, but not for any reason in particular.
-They’ve added a bunch of new options though.# vandy-manu-app
+They’ve added a bunch of new options though.
