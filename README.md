@@ -137,3 +137,25 @@ having class there near meal times.
    
 I eat at commons a couple times a week, but not for any reason in particular.
 They’ve added a bunch of new options though.
+
+# Requirements
+
+This application should be a text messaging application where the users text a 
+standard phone number and receive a text message from the application as a
+response.
+
+The application should communicate in the text message response the menu for
+a particular day, time, and location based on the user input.
+
+The user should be able to inquire about all campus dining locations, meaning
+all on campus locations listed on the Vanderbilt campus dining website.
+
+The application should indicate in message responses if the dining hall is within
+1 hour of closing
+
+The application should indicate if a campus dining location is closed in the 
+text message response.
+
+
+# Development Approach
+
