@@ -140,31 +140,61 @@ They’ve added a bunch of new options though.
 
 # Requirements
 
-This application should be a text messaging application where the users text a 
-standard phone number and receive a text message from the application as a
-response.
+As a Vanderbilt Student, I want to interface with the application through a 
+text messaging interface such that I text a phone number and receive a text
+message response. 
 
-The application should communicate in the text message response the menu for
-a particular day, time, and location based on the user input.
+As a Vanderbilt Student, I want the application’s response to send me the 
+Vanderbilt menu for corresponding to the date, time, and location inputs.
 
-The user should be able to inquire about all campus dining locations, meaning
-all on campus locations listed on the Vanderbilt campus dining website.
+As a Vanderbilt Student, I want to be able to inquire about all Vanderbilt
+dining locations listed on the website through the application. 
 
-The application should indicate in message responses if the dining hall is within
-1 hour of closing
+As a Vanderbilt Student, I want to know if the dining hall I inquire about
+will close within an hour of the message.
 
-The application should indicate if a campus dining location is closed in the 
-text message response.
+As a Vanderbilt Student, I want to know if the a dining hall is closed at the
+time of inquiry.
+
+As a Vanderbilt student, I want to use the application as quickly and with as
+few clicks as absolutely possible.
 
 # Development Approach
 
 The development of this project began with contextual inquiries of Vanderbilt students
 living on Highland and Blakemore quads. These students have the longest walks to main
-campus, where most of our dining is located. These students were interviewed to see gauge
-how much a menu text messaging application would be useful to them, and the empathize with them and their Vanderbilt campus dining experience. Questions were created to attempt to
-best emphasize with them and to help figure out usefulness and implementation versions of the app. 
+campus, where most of our dining is located, and therefore their decisions as to where
+to go for dinner are much more significant than someone who lives close to various dining
+halls. These students were interviewed to see gauge how much a menu text messaging 
+application would be useful to them, and to empathize with them about their Vanderbilt
+campus dining experience. These questions aimed to get at how knowledgeable they were
+about dining options and how they make their dining decisions in order to figure out
+how to implement the vision of the application to best meet user needs. 
 
 From the interview data acquired from the contextual inquiries, requirements were created
-for the application to best meet the needs and desires of the users. Empathizing with the
-users was crucial in developing the requirements, such that the end product will be as 
-usable to them as possible. 
+for the application. Again, empathizing with the users was crucial in developing the
+requirements, such that the end product will be as usable and impactful as possible. These
+requirements were extremely important to the application development process, as they define
+an end point for the application, and help point the app features in the right direction.
+These requirements were written in a User Story fashion, where the story represents a user
+and a certain functionality that the application should have. The requirements were written
+in this way in order to maintain focus on the user centered development, and continue 
+empathizing with the user even through the development process. By having the requirements so
+closely linked to the user, it hopefully makes it harder for the end product to deviate from
+the user requests. 
+
+From the requirements, the application design and architecture began to take place. This involves mocking
+up potential solutions to meet requirement requests, for example, an application that has a text
+messaging interface and the code behind it, and verifying that other requirements will work with
+these different designs. Although this involved thinking about the code needed for the application, 
+it does not require that actual code be written, just planned out for later implementation. This was
+done in order to have a development plan going forward, again to help insure that the application is
+built cohesively and preventing problems in development wherever they may occur. This also helps to
+insure that the requirements of the application are attainable and realistic for later development.
+Additionally in this architecture phase, rough time estimates and priority rankings are attributed
+to each requirement for the application. This is so that in development, the different tasks can be
+performed in the order that makes the most sense to the application, and will yield  the most viable
+product in case of significant problem or failure.
+
+After the architecture of the application is completed, the development and testing phases of the
+project can begin. 
