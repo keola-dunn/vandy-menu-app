@@ -156,6 +156,15 @@ The application should indicate in message responses if the dining hall is withi
 The application should indicate if a campus dining location is closed in the 
 text message response.
 
-
 # Development Approach
 
+The development of this project began with contextual inquiries of Vanderbilt students
+living on Highland and Blakemore quads. These students have the longest walks to main
+campus, where most of our dining is located. These students were interviewed to see gauge
+how much a menu text messaging application would be useful to them, and the empathize with them and their Vanderbilt campus dining experience. Questions were created to attempt to
+best emphasize with them and to help figure out usefulness and implementation versions of the app. 
+
+From the interview data acquired from the contextual inquiries, requirements were created
+for the application to best meet the needs and desires of the users. Empathizing with the
+users was crucial in developing the requirements, such that the end product will be as 
+usable to them as possible. 
