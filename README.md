@@ -194,7 +194,23 @@ insure that the requirements of the application are attainable and realistic for
 Additionally in this architecture phase, rough time estimates and priority rankings are attributed
 to each requirement for the application. This is so that in development, the different tasks can be
 performed in the order that makes the most sense to the application, and will yield  the most viable
-product in case of significant problem or failure.
+product in case of significant problem or failure. Additionally, this involves creating components
+of the application that are not highly dependent on each other such that testing is easier than 
+harder. 
 
 After the architecture of the application is completed, the development and testing phases of the
-project can begin. 
+project can begin. This is where the actual code is written and tested for functionality. This step
+is obviously crucial to the development process, as it is the development itself. Development involved
+taking a requirement starting with the most important and completing it within a period of time based
+on its difficulty. The requirement was broken into smaller pieces in Architecture, and now those 
+pieces are created in code. After the small components are created, they are tested individually to 
+insure correctness. Additionally, they are tested to make sure that they are not riddled with side 
+effects or are heavily dependent on side effects in order to work. This will significantly help later
+developers if the project is ever to be expanded upon. After the components are fully tested, they are
+combined to create a product or add the functionality that the requirement called for, and the development
+moves to the next most important requirement. This development cycle insures that at the end of the project,
+there will at least be a functioning base level prototype because development started with the most fundamental,
+base level components of the application and built into it from there. Additionally, this makes sure
+that requirements are completed in full and not left half complete and implemented into the application.
+Furthermore, this development means that the application requirements can be changed somewhat without
+necessarily changing large portions of the application. 
