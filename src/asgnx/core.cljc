@@ -38,7 +38,11 @@
 ;; See the cmd-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn cmd [msg])
+(defn cmd [msg]
+  (if (= [] (words msg))
+    nil
+    (get (words msg) 0)))
+
 
 ;; Asgn 1.
 ;;
@@ -50,7 +54,10 @@
 ;; See the args-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn args [msg])
+(defn args [msg]
+  (if (= [] (words msg))
+    []
+    (rest (words msg)))) ;;this isnt done yet
 
 ;; Asgn 1.
 ;;
@@ -64,7 +71,8 @@
 ;; See the parsed-msg-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn parsed-msg [msg])
+(defn parsed-msg [msg]
+  {:cmd (cmd msg) :args (args msg)})
 
 ;; Asgn 1.
 ;;
@@ -78,7 +86,9 @@
 ;; See the welcome-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn welcome [pmsg])
+(defn welcome [pmsg]
+  (str "Welcome " (get (get pmsg :args) 0)))
+
 
 ;; Asgn 1.
 ;;
@@ -88,8 +98,8 @@
 ;; See the homepage-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn homepage [_])
-
+(defn homepage [_]
+  cs4278-brightspace)
 
 ;; Asgn 1.
 ;;
@@ -101,7 +111,14 @@
 ;; See the format-hour-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn format-hour [h])
+(defn format-hour [h]
+  (if (> h 11)
+    (if (= 12 h)
+      (str 12 "pm")
+      (str (- h 12) "pm"))
+    (if (= h 0)
+      (str 12 "am")
+      (str h "am"))))
 
 ;; Asgn 1.
 ;;
@@ -118,7 +135,10 @@
 ;; See the formatted-hours-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn formatted-hours [hours])
+(defn formatted-hours [hours]
+  (str "from " (format-hour (get hours :start))
+       " to " (format-hour (get hours :end))
+       " in " (get hours :location)))
 
 ;; Asgn 1.
 ;;
@@ -135,7 +155,10 @@
 ;; See the office-hours-for-day-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn office-hours [{:keys [args cmd]}])
+(defn office-hours [{:keys [args cmd]}]
+  (if (contains? instructor-hours (get args 0))
+   (formatted-hours (get instructor-hours (get args 0)))
+   (str "there are no office hours on that day")))
 
 ;; Asgn 2.
 ;;
@@ -146,11 +169,14 @@
 ;; The map should also have the key :action bound to the value
 ;; :send.
 ;;
-(defn action-send-msg [to msg])
+(defn action-send-msg [to msg]
+  ;;needs to handle multiple "to" people, and return them in a list
+  (hash-map :action :send, :to to, :msg msg))
+
 
 ;; Asgn 2.
 ;;
-;; @Todo: Create a function called action-send-msg that takes
+;; @Todo: Create a function called action-send-msgs that takes
 ;; takes a list of people to receive a message in a `people`
 ;; parameter and a message to send them in a `msg` parmaeter
 ;; and returns a list produced by invoking the above `action-send-msg`
@@ -163,7 +189,8 @@
 ;;   output.add( action-send-msg(person, msg) )
 ;; return output
 ;;
-(defn action-send-msgs [people msg])
+(defn action-send-msgs [people msg]
+  (map #(action-send-msg % msg) people))
 
 ;; Asgn 2.
 ;;
@@ -175,7 +202,8 @@
 ;; The map should also have the key :action bound to the value
 ;; :assoc-in.
 ;;
-(defn action-insert [ks v])
+(defn action-insert [ks v]
+  {:action :assoc-in, :ks ks, :v v})
 
 ;; Asgn 2.
 ;;
@@ -198,7 +226,8 @@
 ;;  (action-insert [:foo :bar :b] 32)
 ;;  (action-insert [:foo :bar :c] 32)]
 ;;
-(defn action-inserts [prefix ks v])
+(defn action-inserts [prefix ks v]
+  (map #(action-insert % v) (map #(conj prefix %) ks)))
 
 ;; Asgn 2.
 ;;
@@ -208,7 +237,8 @@
 ;; The map should also have the key :action bound to the value
 ;; :dissoc-in.
 ;;
-(defn action-remove [ks])
+(defn action-remove [ks]
+  {:action :dissoc-in, :ks ks})
 
 ;; Asgn 3.
 ;;
@@ -222,12 +252,16 @@
 ;; Your function should NOT directly change the application state
 ;; to register them but should instead return a list of the
 ;; appropriate side-effects (above) to make the registration
-;; happen.
+;; happen (hint: action-insert).
 ;;
-;; See the experts-test in test/asgnx/core_test.clj for the
-;; complete specification.
+;; See the integration test in See handle-message-test for the
+;; expectations on how your code operates
 ;;
-(defn experts-register [experts topic id info])
+
+;;experts is the state
+(defn experts-register [experts topic id info]
+  [(action-insert [:expert topic id] info)])
+
 
 ;; Asgn 3.
 ;;
@@ -240,12 +274,13 @@
 ;; Your function should NOT directly change the application state
 ;; to unregister them but should instead return a list of the
 ;; appropriate side-effects (above) to make the registration
-;; happen.
+;; happen (hint: action-remove).
 ;;
-;; See the experts-test in test/asgnx/core_test.clj for the
-;; complete specification.
+;; See the integration test in See handle-message-test for the
+;; expectations on how your code operates
 ;;
-(defn experts-unregister [experts topic id])
+(defn experts-unregister [experts topic id]
+  [{:action :action-remove, :ks [:expert topic id]}])
 
 (defn experts-question-msg [experts question-words]
   (str "Asking " (count experts) " expert(s) for an answer to: \""
@@ -303,11 +338,27 @@
 ;; messy impure action handling at the "edges" of the application, where it is
 ;; easier to track and reason about.
 ;;
-;; You should look at the `handle-message` to get an idea of the way that this
+;; You should look at `handle-message` to get an idea of the way that this
 ;; function is going to be used, its expected signature, and how the actions
 ;; and output are going to work.
 ;;
-(defn ask-experts [experts {:keys [args user-id]}])
+;; See the integration test in See handle-message-test for the
+;; expectations on how your code operates
+;;
+(defn ask-experts [experts {:keys [args user-id]}]
+  (if (<= (count args) 1)
+    (list [] "You must ask a valid question.")
+    (if (= true (empty? experts))
+      (list [] "There are no experts on that topic.")
+      (if (= (count experts) 1)
+        (list [(action-send-msg (first experts) (clojure.string/join " " (rest args)))
+               (action-insert [:conversations (first experts)] {:last-question (rest args) , :asker user-id})]
+              (experts-question-msg experts (rest args)))
+        (list
+              (concat (action-send-msgs experts (clojure.string/join " " (rest args)))
+                      (action-inserts [:conversations] [experts] [{:last-question (rest args) , :asker user-id}]))
+              (experts-question-msg experts (rest args)))))))
+
 
 ;; Asgn 3.
 ;;
@@ -318,6 +369,7 @@
 ;;    to the expert
 ;; 2. a parsed message with the format:
 ;;    {:cmd "ask"
+;;     :user-id "+15555555555"
 ;;     :args [topic answer-word1 answer-word2 ... answer-wordN]}
 ;;
 ;; The parsed message is generated by breaking up the words in the ask
@@ -325,9 +377,14 @@
 ;;
 ;; "answer joey's house of pizza"
 ;;
+;; The conversation will be data that you store as a side-effect in
+;; ask-experts. You probably want this data to be information about the
+;; last question asked to each expert. See the "think about" comment above.
+;;
 ;; The parsed message would be:
 ;;
-;; {:cmd "ask"
+;; {:cmd "answer"
+;;  :user-id "+15555555555"
 ;;  :args ["joey's" "house" "of" "pizza"]}
 ;;
 ;; This function needs to return a list with two elements:
@@ -342,22 +399,27 @@
 ;; when an expert answers (see the conversations query) and make sure you
 ;; handle the needed side effect for storing the conversation state.
 ;;
-;; If there are no registered experts on a topic, you should return an
-;; empty list of actions and "There are no experts on that topic."
-;;
-;; If there isn't a question, you should return "You must ask a valid question."
-;;
 ;; Why this strange architecture? By returning a list of the actions to take,
 ;; rather than directly taking that action, we can keep this function pure.
 ;; Pure functions are WAY easier to test / maintain. Also, we can isolate our
 ;; messy impure action handling at the "edges" of the application, where it is
 ;; easier to track and reason about.
 ;;
-;; You should look at the `handle-message` to get an idea of the way that this
+;; You should look at `handle-message` to get an idea of the way that this
 ;; function is going to be used, its expected signature, and how the actions
 ;; and output are going to work.
 ;;
-(defn answer-question [conversation {:keys [args]}])
+;; See the integration test in See handle-message-test for the
+;; expectations on how your code operates
+;;
+(defn answer-question [conversation {:keys [args]}]
+  (if (empty? args)
+    (list [] "You did not provide an answer.")
+    (if (contains? conversation :last-question)
+      (list [(action-send-msg (get conversation :asker) (clojure.string/join " " args))] "Your answer was sent.")
+      (list [] "You haven't been asked a question."))))
+
+
 
 ;; Asgn 3.
 ;;
@@ -366,8 +428,9 @@
 ;;
 ;; 1. the current list of experts on the topic
 ;; 2. a parsed message with the format:
-;;    {:cmd "ask"
-;;     :args [topic expert-id expert-info]
+;;    {:cmd "expert"
+;;     :user-id "+15555555555"
+;;     :args [topic]
 ;;
 ;;
 ;; The parsed message is generated by breaking up the words in the expert
@@ -379,21 +442,30 @@
 ;;
 ;; {:cmd "expert"
 ;;  :user-id "+15555555555"))
-;;  :args ["sara" "food"]}
+;;  :args ["food"]}
 ;;
 ;; This function needs to add "sara" to the list of experts on "food" and
 ;; associate her phone number with her ID.
 ;;
-;; Similar to the function `ask-experts` function, this function needs to
-;; return the updated `state`, which should now have the expert registered
-;; under the specified topic (e.g., "sara" under "food"). The output to
-;; send back to the user should be (str expert-id " is now an expert on " topic)
+;; This function needs to return a list with two elements:
+;; [[actions...] "response to the person adding themselves as an expert"]
 ;;
-;; The last line of your function should be something like:
+;; The actions in the list are the *side effects* that need to take place
+;; to add the person as an expert on the topic (hint: result of calling experts-register). The string
+;; is the response that is going to be sent back to the person adding themselves
+;; as an expert.
 ;;
-;; [new-state (str expert-id " is now an expert on " topic)]
+;; You should look at `handle-message` to get an idea of the way that this
+;; function is going to be used, its expected signature, and how the actions
+;; and output are going to work.
 ;;
-(defn add-expert [experts {:keys [args user-id]}])
+;; See the integration test in See handle-message-test for the
+;; expectations on how your code operates
+(defn add-expert [experts {:keys [args user-id]}]
+  (list (experts-register experts (first args) user-id {})
+        (str user-id " is now an expert on " (first args) ".")))
+
+
 
 ;; Don't edit!
 (defn stateless [f]
@@ -404,7 +476,11 @@
 (def routes {"default"  (stateless (fn [& args] "Unknown command."))
              "welcome"  (stateless welcome)
              "homepage" (stateless homepage)
-             "office"   (stateless office-hours)})
+             "office"   (stateless office-hours)
+             "ask"      ask-experts
+             "answer"   answer-question
+             "expert"   add-expert})
+
 ;; Asgn 3.
 ;;
 ;; @Todo: Add mappings of the cmds "expert", "ask", and "answer" to
@@ -461,7 +537,13 @@
 ;; See the create-router-test in test/asgnx/core_test.clj for the
 ;; complete specification.
 ;;
-(defn create-router [routes])
+(defn create-router [routes]
+  (fn [in]
+    (if (contains? routes (get in :cmd))
+      (get routes (get in :cmd))
+      (get routes "default"))))
+
+
 
 ;; Don't edit!
 (defn output [o]
