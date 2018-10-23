@@ -42,6 +42,10 @@ app will indicate if the inquired location is open or not. The perfect end produ
 using a combination of static data and a web scraper, however time restrictions may limit
 functionality to potentially entirely static data or a response containing a hyperlink.
 
+# Instructions:
+  1. text: choose <dining hall> <day of week>. The text is all lower case. The dining halls accepted are rand, ebi, commons, kissam, pub, towers, and highland. The day of the week is the fully written out day. 
+  2. text: what to eat. The text is all lower case. This will present the list of dining options to the user. 
+
 # Questions:
   1. How much do menu options influence where you eat on campus?
   2. How often do you use the campus dining website or application?

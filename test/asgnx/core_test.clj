@@ -50,47 +50,29 @@
             :args ["x" "y" "z" "somereallylongthing"]}
            (parsed-msg "foo x y z somereallylongthing")))))
 
-(deftest welcome-test
-  (testing "that welcome messages are correctly formatted"
-    (is (= "Welcome bob" (welcome {:cmd "welcome" :args ["bob"]})))
-    (is (= "Welcome bob" (welcome {:cmd "welcome" :args ["bob" "smith"]})))
-    (is (= "Welcome bob smith jr" (welcome {:cmd "welcome" :args ["bob smith jr"]})))))
+(deftest is-open-test
+  (testing "testing is-open method to see if a restaurant is open"
+    (is (= true (is-open {:cmd "x" :args ["ebi" "monday"]})))
+    (is (= false (is-open {:cmd "x" :args ["towers" "friday"]})))
+    (is (= true (is-open {:cmd "choose" :args ["rand" "saturday"]})))))
 
+(deftest get-open-test
+  (testing "testing get-open to retrieve the open time for a restaurant"
+    (is (= "11am" (get-open ["pub" "monday"])))
+    (is (= "7am" (get-open ["2301" "tuesday"])))
+    (is (= "5:30pm" (get-open ["kissam" "sunday"])))))
 
-(deftest homepage-test
-  (testing "that the homepage is output correctly"
-    (is (= cs4278-brightspace (homepage {:cmd "homepage" :args []})))))
+(deftest get-closed-test
+  (testing "check to see that retrieval of closing time is valid"
+    (is (= "9pm" (get-closed ["pub" "monday"])))
+    (is (= "10pm" (get-closed ["highland" "thursday"])))))
 
-
-(deftest format-hour-test
-  (testing "that 0-23 hour times are converted to am/pm correctly"
-    (is (= "1am" (format-hour 1)))
-    (is (= "1pm" (format-hour 13)))
-    (is (= "2pm" (format-hour 14)))
-    (is (= "12am" (format-hour 0)))
-    (is (= "12pm" (format-hour 12)))))
-
-
-(deftest formatted-hours-test
-  (testing "that the office hours data structure is correctly converted to a string"
-    (is (= "from 8am to 10am in the chairs outside of the Wondry"
-           (formatted-hours {:start 8 :end 10 :location "the chairs outside of the Wondry"})))
-    (is (= "from 4am to 2pm in the chairs outside of the Wondry"
-           (formatted-hours {:start 4 :end 14 :location "the chairs outside of the Wondry"})))
-    (is (= "from 2pm to 10pm in the chairs outside of the Wondry"
-           (formatted-hours {:start 14 :end 22 :location "the chairs outside of the Wondry"})))))
-
-
-(deftest office-hours-for-day-test
-  (testing "testing lookup of office hours on a specific day"
-    (is (= "from 8am to 10am in the chairs outside of the Wondry"
-           (office-hours {:cmd "office hours" :args ["thursday"]})))
-    (is (= "from 8am to 10am in the chairs outside of the Wondry"
-           (office-hours {:cmd "office hours" :args ["tuesday"]})))
-    (is (= "there are no office hours on that day"
-           (office-hours {:cmd "office" :args ["wednesday"]})))
-    (is (= "there are no office hours on that day"
-           (office-hours {:cmd "office" :args ["monday"]})))))
+(deftest choose-dining-test
+  (testing "check to see that the implementation of choose-dining is valid"
+    (is (= "there is no such restaurant on Vanderbilt's campus"
+           (choose-dining '{:cmd "choose" :args ["applebees" "friday"]})))
+    (is (= (str "pub is open from 11am until 3pm. Menu: " menu)
+           (choose-dining '{:cmd "choose" :args ["pub" "friday"]})))))
 
 
 (deftest create-router-test

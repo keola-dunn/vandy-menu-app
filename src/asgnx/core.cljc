@@ -4,11 +4,13 @@
             [asgnx.kvstore :as kvstore
              :refer [put! get! list! remove!]]))
 
-(def resturants (list "pub" "2301" "rand" "commons" "towers" "highland" "kissam" "ebi"))
+;;list of restaurants on campus
+(def restaurants (list "pub" "2301" "rand" "commons" "towers" "highland" "kissam" "ebi"))
 
-
+;;link to Vandy's new, single page menu.
 (def menu "https://campusdining.vanderbilt.edu/menus/")
 
+;;Pub weekly hours
 (def pub-hours {"sunday" {:open "3pm"
                           :close "9pm"}
                 "monday" {:open "11am"
@@ -23,6 +25,7 @@
                           :close "3pm"}
                 "saturday" {:closed true}})
 
+;;2301 weekly hours
 (def a2301-hours {"sunday" {:open "4:30pm"
                             :close "8pm"}
                   "monday" {:open "7am"
@@ -37,6 +40,7 @@
                             :close "3pm"}
                   "saturday" {:closed true}})
 
+;;Rand weekly hours
 (def rand-hours {"sunday" {:open "10am"
                            :close "8pm"}
                  "monday" {:open "7am"
@@ -52,6 +56,7 @@
                  "saturday" {:open "10am"
                              :close "8pm"}})
 
+;;Commons weekly hours
 (def commons-hours {"sunday" {:open "10am"
                               :close "8pm"}
                     "monday" {:open "7am"
@@ -67,6 +72,7 @@
                     "saturday" {:open "10am"
                                 :close "8pm"}})
 
+;;Rocket Subs weekly hours
 (def rocket-subs-hrs {"sunday" {:open "11am"
                                        :close "10pm"}
                              "monday" {:open "11am"
@@ -80,6 +86,7 @@
                              "friday" {:closed true}
                              "saturday" {:closed true}})
 
+;;Kissam and EBI (College Halls) weekly hours
 (def CH-hours {"sunday" {:open "5:30pm"
                              :close "7:30pm"}
                    "monday" {:open "7:30am"
@@ -94,16 +101,15 @@
                              :close "2pm"}
                    "saturday" {:closed true}})
 
-
-(def resturant-hours {"pub" pub-hours
-                      "2301" a2301-hours
-                      "rand" rand-hours
-                      "commons" commons-hours
-                      "towers" rocket-subs-hrs
-                      "highland" rocket-subs-hrs
-                      "kissam" CH-hours
-                      "ebi" CH-hours})
-
+;;routes restaurant strings to the appropriate hours
+(def restaurant-hours {"pub" pub-hours
+                       "2301" a2301-hours
+                       "rand" rand-hours
+                       "commons" commons-hours
+                       "towers" rocket-subs-hrs
+                       "highland" rocket-subs-hrs
+                       "kissam" CH-hours
+                       "ebi" CH-hours})
 
 
 ;; This is a helper function that you might want to use to implement
@@ -480,33 +486,40 @@
   (list (experts-register experts (first args) user-id {})
         (str user-id " is now an expert on " (first args) ".")))
 
+
+
+;;is-open - indicates if a restaurant is open or not based on the input in args
+;;returns true if the restaurant is open on the specified day, false otherwise
 (defn is-open
   [args]
-  (if (contains? (get (get resturant-hours (first args)) (second args)) :closed)
+  (if (contains? (get (get restaurant-hours (first args)) (second args)) :closed)
     false
     true))
 
+;;get-open - gets the opening time for a restaurant based on args input
 (defn get-open
   [args]
-  (get (get (get resturant-hours (first args)) (second args)) :open))
+  (get (get (get restaurant-hours (first args)) (second args)) :open))
 
+;;get-closed - gets the closing time for a restaurant based on args input
 (defn get-closed
   [args]
-  (get (get (get resturant-hours (first args)) (second args)) :close))
+  (get (get (get restaurant-hours (first args)) (second args)) :close))
 
-
+;;choose-dining - creates the string to be returned, containing the info to be
+;;returned to the user
 (defn choose-dining [{:keys [args cmd]}]
-  (if (some #{(first args)} resturants)
+  (if (some #{(first args)} restaurants)
     (if (is-open args)
       (str (first args) " is open from "
            (get-open args) " until "
            (get-closed args)". Menu: " menu)
       (str (first args) " is closed on " (second args)))
-    (str "there is no such resturant on Vanderbilt's campus")))
+    (str "there is no such restaurant on Vanderbilt's campus")))
 
-
+;;show-dining-options - displays all of the dining options on campus
 (defn show-dining-options
-  "End goal - this will return a string of all the resturants currently
+  "End goal - this will return a string of all the restaurants currently
   open. Currently, this presents the commands the user can text the
   application."
   [_]
