@@ -4,21 +4,106 @@
             [asgnx.kvstore :as kvstore
              :refer [put! get! list! remove!]]))
 
-
-;; Do not edit!
-;; A def for the course home page URL.
-(def cs4278-brightspace "https://brightspace.vanderbilt.edu/d2l/home/85892")
+(def resturants (list "pub" "2301" "rand" "commons" "towers" "highland" "kissam" "ebi"))
 
 
-;; Do not edit!
-;; A map specifying the instructor's office hours that is keyed by day of the week.
-(def instructor-hours {"tuesday"  {:start    8
-                                   :end      10
-                                   :location "the chairs outside of the Wondry"}
+(def menu "https://campusdining.vanderbilt.edu/menus/")
 
-                       "thursday" {:start    8
-                                   :end      10
-                                   :location "the chairs outside of the Wondry"}})
+(def pub-hours {"sunday" {:open "3pm"
+                          :close "9pm"}
+                "monday" {:open "11am"
+                          :close "9pm"}
+                "tuesday" {:open "11am"
+                           :close "9pm"}
+                "wednesday" {:open "11am"
+                             :close "9pm"}
+                "thursday" {:open "11am"
+                            :close "9pm"}
+                "friday" {:open "11am"
+                          :close "3pm"}
+                "saturday" {:closed true}})
+
+(def a2301-hours {"sunday" {:open "4:30pm"
+                            :close "8pm"}
+                  "monday" {:open "7am"
+                            :close "8pm"}
+                  "tuesday" {:open "7am"
+                             :close "8pm"}
+                  "wednesday" {:open "7am"
+                               :close "8pm"}
+                  "thursday" {:open "7am"
+                              :close "8pm"}
+                  "friday" {:open "7am"
+                            :close "3pm"}
+                  "saturday" {:closed true}})
+
+(def rand-hours {"sunday" {:open "10am"
+                           :close "8pm"}
+                 "monday" {:open "7am"
+                           :close "8pm"}
+                 "tuesday" {:open "7am"
+                            :close "8pm"}
+                 "wednesday" {:open "7am"
+                              :close "8pm"}
+                 "thursday" {:open "7am"
+                             :close "8pm"}
+                 "friday" {:open "7am"
+                           :close "8pm"}
+                 "saturday" {:open "10am"
+                             :close "8pm"}})
+
+(def commons-hours {"sunday" {:open "10am"
+                              :close "8pm"}
+                    "monday" {:open "7am"
+                              :close "8pm"}
+                    "tuesday" {:open "7am"
+                               :close "8pm"}
+                    "wednesday" {:open "7am"
+                                 :close "8pm"}
+                    "thursday" {:open "7am"
+                                :close "8pm"}
+                    "friday" {:open "7am"
+                              :close "8pm"}
+                    "saturday" {:open "10am"
+                                :close "8pm"}})
+
+(def rocket-subs-hrs {"sunday" {:open "11am"
+                                       :close "10pm"}
+                             "monday" {:open "11am"
+                                       :close "10pm"}
+                             "tuesday" {:open "11am"
+                                        :close "10pm"}
+                             "wednesday" {:open "11am"
+                                          :close "10pm"}
+                             "thursday" {:open "11am"
+                                         :close "10pm"}
+                             "friday" {:closed true}
+                             "saturday" {:closed true}})
+
+(def CH-hours {"sunday" {:open "5:30pm"
+                             :close "7:30pm"}
+                   "monday" {:open "7:30am"
+                             :close "7:30pm"}
+                   "tuesday" {:open "7:30am"
+                              :close "7:30pm"}
+                   "wednesday" {:open "7:30am"
+                                :close "7:30pm"}
+                   "thursday" {:open "7:30am"
+                               :close "7:30pm"}
+                   "friday" {:open "7:30am"
+                             :close "2pm"}
+                   "saturday" {:closed true}})
+
+
+(def resturant-hours {"pub" pub-hours
+                      "2301" a2301-hours
+                      "rand" rand-hours
+                      "commons" commons-hours
+                      "towers" rocket-subs-hrs
+                      "highland" rocket-subs-hrs
+                      "kissam" CH-hours
+                      "ebi" CH-hours})
+
 
 
 ;; This is a helper function that you might want to use to implement
@@ -87,78 +172,8 @@
 ;; complete specification.
 ;;
 (defn welcome [pmsg]
-  (str "Welcome " (get (get pmsg :args) 0)))
+  (str "Welcome " (first (get pmsg :args))))
 
-
-;; Asgn 1.
-;;
-;; @Todo: Fill in this function to return the CS 4278 home page.
-;; Use the `cs4278-brightspace` def to produce the output.
-;;
-;; See the homepage-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn homepage [_]
-  cs4278-brightspace)
-
-;; Asgn 1.
-;;
-;; @Todo: Fill in this function to convert from 0-23hr format
-;; to AM/PM format.
-;;
-;; Example: (format-hour 14) => "2pm"
-;;
-;; See the format-hour-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn format-hour [h]
-  (if (> h 11)
-    (if (= 12 h)
-      (str 12 "pm")
-      (str (- h 12) "pm"))
-    (if (= h 0)
-      (str 12 "am")
-      (str h "am"))))
-
-;; Asgn 1.
-;;
-;; @Todo: This function should take a map in the format of
-;; the values in the `instructor-hours` map (e.g. {:start ... :end ... :location ...})
-;; and convert it to a string format.
-;;
-;; Example:
-;; (formatted-hours {:start 8 :end 10 :location "the chairs outside of the Wondry"}))
-;; "from 8am to 10am in the chairs outside of the Wondry"
-;;
-;; You should use your format-hour function to implement this.
-;;
-;; See the formatted-hours-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn formatted-hours [hours]
-  (str "from " (format-hour (get hours :start))
-       " to " (format-hour (get hours :end))
-       " in " (get hours :location)))
-
-;; Asgn 1.
-;;
-;; @Todo: This function should lookup and see if the instructor
-;; has office hours on the day specified by the first of the `args`
-;; in the parsed message. If so, the function should return the
-;; `formatted-hours` representation of the office hours. If not,
-;; the function should return "there are no office hours on that day".
-;; The office hours for the instructor should be obtained from the
-;; `instructor-hours` map.
-;;
-;; You should use your formatted-hours function to implement this.
-;;
-;; See the office-hours-for-day-test in test/asgnx/core_test.clj for the
-;; complete specification.
-;;
-(defn office-hours [{:keys [args cmd]}]
-  (if (contains? instructor-hours (get args 0))
-   (formatted-hours (get instructor-hours (get args 0)))
-   (str "there are no office hours on that day")))
 
 ;; Asgn 2.
 ;;
@@ -465,6 +480,38 @@
   (list (experts-register experts (first args) user-id {})
         (str user-id " is now an expert on " (first args) ".")))
 
+(defn is-open
+  [args]
+  (if (contains? (get (get resturant-hours (first args)) (second args)) :closed)
+    false
+    true))
+
+(defn get-open
+  [args]
+  (get (get (get resturant-hours (first args)) (second args)) :open))
+
+(defn get-closed
+  [args]
+  (get (get (get resturant-hours (first args)) (second args)) :close))
+
+
+(defn choose-dining [{:keys [args cmd]}]
+  (if (some #{(first args)} resturants)
+    (if (is-open args)
+      (str (first args) " is open from "
+           (get-open args) " until "
+           (get-closed args)". Menu: " menu)
+      (str (first args) " is closed on " (second args)))
+    (str "there is no such resturant on Vanderbilt's campus")))
+
+
+(defn show-dining-options
+  "End goal - this will return a string of all the resturants currently
+  open. Currently, this presents the commands the user can text the
+  application."
+  [_]
+  (str "rand, commons, 2301, pub, towers (rocket subs), highland (rocket subs),
+ebi, kissam"))
 
 
 ;; Don't edit!
@@ -474,12 +521,11 @@
 
 
 (def routes {"default"  (stateless (fn [& args] "Unknown command."))
-             "welcome"  (stateless welcome)
-             "homepage" (stateless homepage)
-             "office"   (stateless office-hours)
              "ask"      ask-experts
              "answer"   answer-question
-             "expert"   add-expert})
+             "expert"   add-expert
+             "choose"   (stateless choose-dining)
+             "what"     (stateless show-dining-options)})
 
 ;; Asgn 3.
 ;;

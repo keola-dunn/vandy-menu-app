@@ -15,6 +15,7 @@
                                          org.clojure/clojure
                                          org.clojure/core.async]]]
 
+
             ;; Serverless
             :cljs-lambda {:cljs-build-id "lambda"
                           :resource-dirs ["resources"]}
@@ -61,7 +62,7 @@
 
                              :env {:dev true}}}
 
-            :main asgnx.cli 
+            :main asgnx.cli
 
             :cljsbuild
             {:builds {:lambda
